@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Task } from '../../Interfaces/Taskinterface';
+import { DataService } from '../../Services/data.service'
 
 @Component({
   selector: 'app-todo-list',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
+  tasks: Task[];
 
-  constructor() { }
+  constructor(private DataService:DataService) { }
 
   ngOnInit() {
+    this.tasks = this.DataService.testData();
   }
 
 }

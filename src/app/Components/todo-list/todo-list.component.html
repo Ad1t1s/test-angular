@@ -1,7 +1,9 @@
 <div class="content">
   <h3>Todo List</h3>
   <div class="todosContainer">
-
+    <p *ngFor="let task of tasks; index as i;">
+        {{task["text"]}}
+    </p>
   </div>
   <form ng-submit="">
     <input type="text"
