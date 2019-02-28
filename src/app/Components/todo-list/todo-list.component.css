@@ -3,6 +3,13 @@ body {
   flex-direction: column;
 }
 
+.todosContainer {
+  display: block;
+  height: 15em;
+  border-bottom: 1px solid #DDDDDD;
+  overflow: auto;
+}
+
 .content {
   margin-bottom: 2em;
 }

@@ -1,49 +1,45 @@
 <div class="content">
   <h3>Todo List</h3>
   <div class="todosContainer">
+    <article
+      *ngFor="let task of todos; index as i;"
+      [ngClass]=" task.done ? 'done' : 'archived' "
+      title="{{ task.done ? 'undo' : 'do' }}"
+      (click)="changeStatus(task)"
+      >
+        <p>{{ task.text }}</p>
+        <a class="archive"
+          (click)="toggleArhiveTask(task, i)"
+        >archive</a>
+        <a class="remove"
+          (click)="remove(i)"
+        >remove</a>
+    </article>
   </div>
-  <article
-    *ngFor="let task of tasks | sortTask:false; index as i;"
-    [ngClass]=" task.done ? 'done' : 'archived' "
-    title="{{ task.done ? 'undo' : 'do' }}"
-    >
-      <p>{{ task.text }}</p>
-      <a class="archive"
-        *ngIf="!task.archived"
-      >archive</a>
-      <a class="remove"
-        *ngIf="!task.archived"
-      >remove</a>
-      <a class="remove"
-        *ngIf="task.archived"
-      >unarchive</a>
-  </article>
-  <form ng-submit="">
+  <form name="todoForm">
     <input type="text"
-          ng-model=""
-          placeholder="Your todo here!">
-    <input type="submit"
-          value="Add">
+          [(ngModel)]="newTodo.text"
+          placeholder="Your todo here!"
+          name="text" autocomplete="off"
+          >
+    <input
+          type="submit"
+          value="Add"
+          (click)="addTask()">
   </form>
 </div>
 <div class="content">
   <h3>Archived List</h3>
   <div class="todosContainer">
-      <article
-        *ngFor="let task of tasks | sortTask:true; index as i;"
-        [ngClass]=" task.done ? 'done' : 'archived' "
-        title="{{ task.done ? 'undo' : 'do' }}"
-      >
-        <p>{{ task.text }}</p>
-        <a class="archive"
-          *ngIf="!task.archived"
-        >archive</a>
-        <a class="remove"
-          *ngIf="!task.archived"
-        >remove</a>
-        <a class="remove"
-          *ngIf="task.archived"
-        >unarchive</a>
+    <article
+      *ngFor="let task of archived; index as i;"
+      [ngClass]=" task.done ? 'done' : 'archived' "
+      title="{{ task.done ? 'undo' : 'do' }}"
+    >
+      <p>{{ task.text }}</p>
+      <a class="remove"
+        (click)="toggleArhiveTask(task, i)"
+      >unarchive</a>
     </article>
   </div>
 </div>
