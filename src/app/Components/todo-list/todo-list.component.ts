@@ -12,31 +12,34 @@ export class TodoListComponent implements OnInit {
   archived: Task[];
 
   newTodo = new Task();
-  constructor(private DataService:DataService) { }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    [this.todos, this.archived] = this.DataService.testData().reduce((acc, next) => (acc[+next.archived].push(next), acc), [[], []]);
+    [this.todos, this.archived] = this.dataService.testData()
+                                  .reduce((acc, next) => (acc[+next.archived]
+                                  .push(next), acc), [[], []]);
   }
 
-  changeStatus(task) {
+  changeStatus(task: Task) {
     task.done = !task.done;
   }
 
-  toggleArhiveTask(task, idx: number) {
-    let [from_, to_] = [this.archived, this.todos];
+  toggleArhiveTask(task: Task, idx: number) {
+    let [from, to]: Task[][] = [this.archived, this.todos];
     if (!task.archived) {
-      [from_, to_] = [to_, from_];
+      [from, to] = [to, from];
     }
     task.archived = !task.archived;
-    to_.push(from_.splice(idx, 1).pop());
+    to.push(from.splice(idx, 1).pop());
   }
 
   addTask() {
-    this.todos.push(this.newTodo)
+    this.todos.push(this.newTodo);
     this.newTodo = new Task();
   }
 
-  remove(i) {
+  remove(i: number) {
     this.todos.splice(i, 1);
   }
 

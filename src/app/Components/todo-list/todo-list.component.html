@@ -23,6 +23,7 @@
           name="text" autocomplete="off"
           >
     <input
+          [disabled]="!newTodo.text"
           type="submit"
           value="Add"
           (click)="addTask()">
@@ -33,7 +34,7 @@
   <div class="todosContainer">
     <article
       *ngFor="let task of archived; index as i;"
-      [ngClass]=" task.done ? 'done' : 'archived' "
+      [ngClass]="{done: task.done}"
       title="{{ task.done ? 'undo' : 'do' }}"
     >
       <p>{{ task.text }}</p>
@@ -43,6 +44,3 @@
     </article>
   </div>
 </div>
-
-
-<!-- task.done ? "to-you" : "you" -->
