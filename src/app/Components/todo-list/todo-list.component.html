@@ -1,10 +1,23 @@
 <div class="content">
   <h3>Todo List</h3>
   <div class="todosContainer">
-    <p *ngFor="let task of tasks; index as i;">
-        {{task["text"]}}
-    </p>
   </div>
+  <article
+    *ngFor="let task of tasks | sortTask:false; index as i;"
+    [ngClass]=" task.done ? 'done' : 'archived' "
+    title="{{ task.done ? 'undo' : 'do' }}"
+    >
+      <p>{{ task.text }}</p>
+      <a class="archive"
+        *ngIf="!task.archived"
+      >archive</a>
+      <a class="remove"
+        *ngIf="!task.archived"
+      >remove</a>
+      <a class="remove"
+        *ngIf="task.archived"
+      >unarchive</a>
+  </article>
   <form ng-submit="">
     <input type="text"
           ng-model=""
@@ -16,6 +29,24 @@
 <div class="content">
   <h3>Archived List</h3>
   <div class="todosContainer">
-
+      <article
+        *ngFor="let task of tasks | sortTask:true; index as i;"
+        [ngClass]=" task.done ? 'done' : 'archived' "
+        title="{{ task.done ? 'undo' : 'do' }}"
+      >
+        <p>{{ task.text }}</p>
+        <a class="archive"
+          *ngIf="!task.archived"
+        >archive</a>
+        <a class="remove"
+          *ngIf="!task.archived"
+        >remove</a>
+        <a class="remove"
+          *ngIf="task.archived"
+        >unarchive</a>
+    </article>
   </div>
 </div>
+
+
+<!-- task.done ? "to-you" : "you" -->
